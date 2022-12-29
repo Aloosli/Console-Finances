@@ -98,6 +98,21 @@ The loop is initialized with a var "i" that is set to 0. The loop will keep runn
  */
 var totalAmount = 0;
 for (var i = 0; i < finances.length; i++) {
-    // this line of code  adds the value of the second element in the current array element(i.e 'finances[i][1]) to the 'totalAmount' variable.
+  // this line of code  adds the value of the second element in the current array element(i.e 'finances[i][1]) to the 'totalAmount' variable.
   totalAmount += finances[i][1];
 }
+
+// Calculate the average of the changes in Profit/Losses
+
+// this declares a var called totalChange and initializes it to 0. This variable will be used to store the total change in profi & losses as the code iterates through the 'finances' array.
+var totalChange = 0;
+
+/* This for loop will again iterate over each element in the finances array, starting with the second element (index 1)
+ inside the for loop, the code calculates the change in profit or loss from the current to the previous element by subtracting the value of the second element in the previous array element (i.e finances [i - 1][1]) from the value of the second element in the current array element (i.e finances[i][1]).
+ The result is then added to the totalChange variable using the += operator.*/
+for (var i = 1; i < finances.length; i++) {
+  totalChange += finances[i][1] - finances[i - 1][1];
+}
+/* this line of code calculates the average change in profit or loss by dividing the 'totalChange variable by the number of elements in the finances array minus 1.
+This is because we are only interested in the change between adjacent elements, not the change from the first to the last element*/
+var averageChange = totalChange / (finances.length - 1);

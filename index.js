@@ -91,10 +91,10 @@ var totalMonths = finances.length;
 
 // Calculate the net total amount of Profit/Losses
 
-/* Declare a var called totalAmount and initialize it to 0.
+/* Declares a variable called 'totalAmount' and initialize it to 0.
 This for loop will iterate over each element in the finances array.
 The loop is initialized with a var "i" that is set to 0. The loop will keep running as long as 'i' is less than the lenght of the finances array.
- finally, the 'i' var is incremented by 1 at the end of each iteration.
+ finally, the 'i' variable is incremented by 1 at the end of each loop.
  */
 var totalAmount = 0;
 for (var i = 0; i < finances.length; i++) {
@@ -104,15 +104,65 @@ for (var i = 0; i < finances.length; i++) {
 
 // Calculate the average of the changes in Profit/Losses
 
-// this declares a var called totalChange and initializes it to 0. This variable will be used to store the total change in profi & losses as the code iterates through the 'finances' array.
-var totalChange = 0;
 
-/* This for loop will again iterate over each element in the finances array, starting with the second element (index 1)
- inside the for loop, the code calculates the change in profit or loss from the current to the previous element by subtracting the value of the second element in the previous array element (i.e finances [i - 1][1]) from the value of the second element in the current array element (i.e finances[i][1]).
- The result is then added to the totalChange variable using the += operator.*/
+/* Declares a variable called 'averageChange' and initialize it to 0.
+This for loop will iterate over each element in the finances array, starting with the second element.
+The loop is initialized with i = 1 and will run as long as i is less than the length of the finances array.
+The loop will increment i by 1 after each iteration.
+*/
+var averageChange = 0;
 for (var i = 1; i < finances.length; i++) {
-  totalChange += finances[i][1] - finances[i - 1][1];
+  // Add the difference between the second element of the current array element and the second element of the previous array element to averageChange
+  averageChange += finances[i][1] - finances[i - 1][1];
 }
-/* this line of code calculates the average change in profit or loss by dividing the 'totalChange variable by the number of elements in the finances array minus 1.
-This is because we are only interested in the change between adjacent elements, not the change from the first to the last element*/
-var averageChange = totalChange / (finances.length - 1);
+// Divides 'averageChange' by the total number of differences (total number of months minus 1) to get the average change per month
+averageChange /= (totalMonths - 1);
+
+// Calculate the greatest increase and decrease
+
+/* Declares 2 variables called 'greatestIncrease' and 'greatestDecrease' and initialize them with the minimum and maximum values that the variables can take, respectively.
+This for loop will iterate over each element in the finances array, starting with the second element.
+The loop is initialized with i = 1 and will run as long as i is less than the length of the finances array.
+The loop will increment i by 1 after each iteration.
+Used MIN.VALUE and MAX.VALUE so that the 'greatestIncrease' and 'greatestDecrease' objects can be updated with the actual increase and decrease as the loop progresses.
+*/
+var greatestIncrease = {
+    date: "",
+    amount: Number.MIN_VALUE
+  };
+  var greatestDecrease = {
+    date: "",
+    amount: Number.MAX_VALUE
+  };
+  for (var i = 1; i < finances.length; i++) {
+    // If the difference between the second element of the current array element and the second element of the previous array element is greater than the current greatest increase, update greatestIncrease
+    if (finances[i][1] - finances[i - 1][1] > greatestIncrease.amount) {
+      greatestIncrease.date = finances[i][0];
+      greatestIncrease.amount = finances[i][1] - finances[i - 1][1];
+    }
+
+// If the difference between the second element of the current array element and the second element of the previous array element is less than the current greatest decrease, update greatestDecrease
+if (finances[i][1] - finances[i - 1][1] < greatestDecrease.amount) {
+    greatestDecrease.date = finances[i][0];
+    greatestDecrease.amount = finances[i][1] - finances[i - 1][1];
+  }
+}
+
+
+// Print the analysis to the console
+
+console.log("Financial Analysis");
+
+console.log("----------------------------");
+
+console.log("Total Months: " + totalMonths);
+
+console.log("Total: $" + totalAmount);
+
+console.log("Average Change: $" + averageChange.toFixed(2));
+
+console.log("Greatest Increase in Profits: " + greatestIncrease.date + " ($" + greatestIncrease.amount + ")");
+
+console.log("Greatest Decrease in Profits: " + greatestDecrease.date + " ($" + greatestDecrease.amount + ")");
+
+

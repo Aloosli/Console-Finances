@@ -17,3 +17,7 @@ The results are printed to the console in the following format:
 
 ## Use
 To use this project, simply open the JavaScript file in a browser. The results will be printed to the console.
+
+## Deployment
+
+https://aloosli.github.io/Console-Finances/
